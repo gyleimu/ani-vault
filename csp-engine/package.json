@@ -1,0 +1,16 @@
+{
+  "name": "anivault-plugin-engine",
+  "version": "0.2.0",
+  "private": true,
+  "type": "commonjs",
+  "description": "AniVault 插件引擎 - 本地 TVBox csp 插件执行服务",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "install-deps": "npm install"
+  },
+  "dependencies": {
+    "axios": "^1.7.0",
+    "cheerio": "^1.0.0"
+  }
+}

@@ -1,0 +1,135 @@
+# AniVault 开发规范
+
+## 项目信息
+
+- 项目名称：AniVault
+- 技术栈：Tauri + Vue 3 + Vite + Pinia + Vue Router
+
+## 分层架构（严格遵守，不可跨层）
+
+### 第一层 - 视图层
+
+路径：src/views/ + src/components/
+
+职责：只负责 UI 渲染和用户交互
+
+规则：
+- 只能调用 store，不能直接调用 api/
+- 不能写业务逻辑
+- 组件 props 必须定义类型
+- 禁止在 views/ 直接写 fetch 或 axios
+
+### 第二层 - 状态层
+
+路径：src/store/
+
+职责：负责数据管理和业务逻辑
+
+规则：
+- 只能调用 api/，不能直接 fetch
+- 不能操作 DOM
+- Store 使用 Composition API 风格
+
+### 第三层 - 请求层
+
+路径：src/api/ + src/utils/request.js
+
+职责：只负责 API 请求封装
+
+规则：
+- 不能包含业务逻辑
+- 所有请求统一从这里发出
+- 所有 API 请求必须经过 src/utils/request.js
+
+## 命名规范
+
+| 类型 | 风格 | 示例 |
+|------|------|------|
+| 组件文件 | 大驼峰 | AnimeCard.vue |
+| 其他文件 | 小写短横线 | anime-card.js |
+| 变量/函数 | 小驼峰 | animeList、fetchData |
+| CSS 类名 | 小写短横线 | .anime-card、.btn-primary |
+| Store | use + 大驼峰 + Store | useAnimeStore |
+| CSS 变量 | 小写短横线 | --color-primary |
+| 常量 | 大写下划线 | MAX_RETRY_COUNT |
+
+## 项目结构
+
+src/
+├── views/              # 视图层 - 页面组件
+│   ├── Home.vue
+│   ├── Search.vue
+│   ├── Detail.vue
+│   ├── Player.vue
+│   └── History.vue
+├── components/         # 视图层 - 通用组件
+│   ├── common/         # 基础组件
+│   ├── layout/         # 布局组件
+│   └── anime/          # 业务组件
+├── store/              # 状态层 - Pinia Store
+│   ├── useAnimeStore.js
+│   ├── usePlayerStore.js
+│   └── useHistoryStore.js
+├── api/                # 请求层 - API 封装
+│   └── anime.js
+├── utils/              # 请求层 - 工具函数
+│   └── request.js      # Axios 实例
+├── styles/             # 样式
+├── router/             # 路由
+├── assets/             # 静态资源
+├── App.vue
+└── main.js
+
+## 开发规范
+
+### 1. 修改代码前先说明
+
+每次修改代码前，必须先说明要修改哪一层的哪个文件：
+"我将修改 视图层 的 src/views/Home.vue，添加搜索按钮"
+
+### 2. 禁止跨层修改
+
+不能因为修改一层而擅自修改其他层：
+❌ 错误：修改 Home.vue 时，顺手改了 api/anime.js
+✅ 正确：只修改 Home.vue，如需修改 api 层，单独说明
+
+### 3. 文件顶部注释
+
+每个文件顶部必须有注释说明该文件的职责：
+- Vue 文件：<!-- 视图层 - 首页：展示热门番剧推荐 -->
+- JS 文件：/** 请求层 - 番剧相关 API */
+
+### 4. Props 类型定义
+
+组件 props 必须定义类型：
+defineProps({
+  title: { type: String, required: true },
+  count: { type: Number, default: 0 },
+  items: { type: Array, default: () => [] }
+})
+
+## 样式规范
+
+- 使用 CSS 变量管理所有颜色和间距
+- 组件样式使用 scoped 隔离
+- 动画使用纯 CSS，不引入第三方动画库
+- 响应式断点：768px（平板）、480px（手机）
+
+## 路由规范
+
+- 页面组件统一放在 views/ 目录
+- 路由使用懒加载：() => import('../views/xxx.vue')
+- 路由变更时更新 document.title
+
+## 状态管理规范
+
+- 每个独立功能模块对应一个 Store
+- Store 使用 Composition API 风格（defineStore + setup 函数）
+- 持久化数据使用 localStorage，key 前缀 anivault_
+
+## Tauri 规范
+
+- 窗口配置在 src-tauri/tauri.conf.json
+- 权限声明在 src-tauri/capabilities/default.json
+- Rust 命令使用 #[tauri::command] 注解
+- 前端通过 @tauri-apps/api 调用原生能力

@@ -1,0 +1,165 @@
+/* ============================================================
+   AniVault Animation Library
+   纯 CSS 动画，无第三方依赖
+   ============================================================ */
+
+/* ── 入场动画 ──────────────────────────────────────────── */
+
+/* 渐入上移 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 渐入下移 */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 渐入 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 缩放渐入 */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 从左滑入 */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 从右滑入 */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+/* ── 循环动画 ──────────────────────────────────────────── */
+
+/* 柔和脉冲光晕 */
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.08);
+  }
+}
+
+/* 漂浮 */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(4px) rotate(-1deg);
+  }
+}
+
+/* 缓慢旋转 */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 光线扫过 */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* 呼吸动画 */
+@keyframes breathe {
+  0%, 100% {
+    opacity: 0.5;
+    filter: blur(var(--blur-xl));
+  }
+  50% {
+    opacity: 0.8;
+    filter: blur(var(--blur-lg));
+  }
+}
+
+/* 背景网格线流动 */
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(40px, 40px); }
+}
+
+/* 文字光效 */
+@keyframes textGlow {
+  0%, 100% {
+    text-shadow: 0 0 20px var(--color-primary-glow);
+  }
+  50% {
+    text-shadow: 0 0 40px var(--color-primary-glow),
+                 0 0 80px rgba(124, 106, 239, 0.15);
+  }
+}
+
+/* 波纹扩散 */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* 脉冲 */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* 骨架屏闪烁 */
+@keyframes skeleton {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}

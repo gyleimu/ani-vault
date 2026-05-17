@@ -1,0 +1,8 @@
+{
+  "rust-analyzer.cargo.buildScripts.enable": true,
+  "rust-analyzer.procMacro.enable": true,
+  "rust-analyzer.check.command": "clippy",
+  "rust-analyzer.server.extraEnv": {
+    "CARGO_TARGET_DIR": "target"
+  }
+}
